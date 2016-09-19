@@ -1,0 +1,6 @@
+---
+- name:Install Server Basics
+  apt: pkg={{ item }} state=installed update_cache=true
+  with_items:
+    - git
+
