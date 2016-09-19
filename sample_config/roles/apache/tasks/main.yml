@@ -1,0 +1,10 @@
+---
+- name: Install Apache
+  apt: pkg=apache2 state=installed update_cache=true
+  notify: 
+    - start apache
+
+- name: Create website directory
+  file: dest={{ website_dir  }} mode=775 state=directory owner=www-data group=www-data
+  notify:
+    - restart apache

@@ -3,4 +3,7 @@
   sudo: yes
   tasks:
     - name: Install NTP
+
+
+
       apt: pkg=ntp state=installed update_cache=true
