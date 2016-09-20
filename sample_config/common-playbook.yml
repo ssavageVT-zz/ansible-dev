@@ -15,6 +15,7 @@
         - curl
         - sudo
         - zsh
+    
 
     - name: Create the sudo group
       group:
