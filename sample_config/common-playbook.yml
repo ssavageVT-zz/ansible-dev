@@ -1,6 +1,43 @@
 ---
-- name:Install Server Basics
-  apt: pkg={{ item }} state=installed update_cache=true
-  with_items:
-    - git
+- hosts: all
+
+  vars:
+    - user_name: ssavage
+
+  tasks:
+    - name: Install Server Basics
+      apt: pkg={{ item }} state=installed update_cache=true
+      with_items:
+        - git
+        - htop
+        - vim
+        - unzip
+        - curl
+        - sudo
+        - zsh
+
+- name: Create the sudo group
+  group:
+    name=sudo
+    state=present
+
+- name: Create a new user
+  user:
+    name={{user_name}}
+    state=present
+    groups="sudo"
+    shell=/bin/zsh
+    password=$6$rounds=656000$otDlt/vwksQuyif1$qa14cpcECRzk9giaifQ01ZZJS8qO1qz5qqbpET6OG43SN7NFpMvOVDq2qwKMUNHMnfRrnvDom73.AcdluOXrL1
+
+    - name: Create home directory folder structure
+      file: path=/home/{{ user_name }}/{{ item }}
+        state=directory
+        owner={{ user_name }}
+        group={{ user_name }}
+        mode=0700
+      with_items:
+        - src
+        - backup
+        - bin
+        - tmp
 
